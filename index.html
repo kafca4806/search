@@ -11,20 +11,26 @@
     body {
       margin: 0;
       min-height: 100vh;
+      min-height: 100svh;
       display: grid;
       place-items: center;
       font-family: "Inter", "Segoe UI", Arial, sans-serif;
-      background: radial-gradient(circle at top, #f8fafc 0%, #eef2f7 55%, #e8edf5 100%);
+      background-color: #edf2f8;
+      background-image: radial-gradient(circle, rgba(71, 85, 105, 0.22) 1px, transparent 1px);
+      background-size: 16px 16px;
     }
     .wrap {
       width: min(92vw, 700px);
       text-align: center;
-      padding: 28px;
+      padding: 28px 28px 14px;
       border-radius: 20px;
       background: rgba(255, 255, 255, 0.72);
       border: 1px solid rgba(255, 255, 255, 0.9);
       box-shadow: 0 14px 40px rgba(16, 24, 40, 0.12);
       backdrop-filter: blur(4px);
+    }
+    #search-form {
+      margin: 0;
     }
     input {
       width: 100%;
@@ -59,7 +65,7 @@
       <input
         id="search-input"
         type="text"
-        placeholder="Type search keyword and press Enter"
+        placeholder="Search..."
         autocomplete="off"
         autofocus
       />
@@ -81,7 +87,7 @@
     const input = document.getElementById("search-input");
     const hint = document.getElementById("hint");
 
-    hint.textContent = `Search To ${targetTemplate}`;
+    hint.textContent = `Search to ${targetTemplate}`;
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
