@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <title>Search</title>
+    <style>
+      body {
+        margin: 0;
+        background: #121212;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+      }
+      input {
+        width: 60%;
+        max-width: 600px;
+        background: none;
+        border: none;
+        border-bottom: 2px solid #5f6368;
+        color: #e8eaed;
+        font-size: 2rem;
+        outline: none;
+        text-align: center;
+        transition: border-color 0.3s;
+      }
+      input:focus {
+        border-bottom-color: #8ab4f8;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="text" id="q" placeholder="Type and Enter" autofocus />
+    <script>
+      document.getElementById("q").onkeydown = (e) => {
+        if (e.key === "Enter" && e.target.value) {
+          location.href =
+            "https://www.google.com/search?q=" +
+            encodeURIComponent(e.target.value);
+        }
+      };
+    </script>
+  </body>
+</html>
