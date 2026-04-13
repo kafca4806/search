@@ -60,12 +60,12 @@
   <script>
     const params = new URLSearchParams(window.location.search);
 
-    // URL template. Example: https://www.google.com/search?q={query}
+    // URL template. Example: https://www.google.com/search?q=%
     const targetTemplate =
-      params.get("url") || "https://www.google.com/search?q={query}";
+      params.get("url") || "https://www.google.com/search?q=%";
 
     // Replace token inside template with encoded input text.
-    const token = params.get("token") || "{query}";
+    const token = params.get("token") || "%";
 
     const form = document.getElementById("search-form");
     const input = document.getElementById("search-input");
