@@ -79,9 +79,23 @@
       if (!raw) return;
 
       const encoded = encodeURIComponent(raw);
-      const nextUrl = targetTemplate.includes(token)
-        ? targetTemplate.split(token).join(encoded)
-        : `${targetTemplate}${encoded}`;
+      const replacementTokens = Array.from(
+        new Set([token, "%", "{query}"].filter(Boolean))
+      );
+
+      let nextUrl = targetTemplate;
+      let replaced = false;
+
+      for (const replacementToken of replacementTokens) {
+        if (nextUrl.includes(replacementToken)) {
+          nextUrl = nextUrl.split(replacementToken).join(encoded);
+          replaced = true;
+        }
+      }
+
+      if (!replaced) {
+        nextUrl = `${targetTemplate}${encoded}`;
+      }
 
       window.location.href = nextUrl;
     });
