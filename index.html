@@ -99,7 +99,7 @@
 
     const targetDomain = resolveDomainFromTemplate(targetTemplate);
     if (targetDomain) {
-      const faviconHref = `https://www.google.com/s2/favicons?sz=64&domain=${encodeURIComponent(targetDomain)}`;
+      const faviconHref = `https://www.google.com/s2/favicons?sz=64&domain=${targetTemplate}`;
       const iconLink = document.querySelector("link[rel='icon']") || document.createElement("link");
       iconLink.setAttribute("rel", "icon");
       iconLink.setAttribute("href", faviconHref);
