@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Search Redirect</title>
+  <link rel="icon" href="https://www.google.com/s2/favicons?sz=64&domain=google.com" />
   <style>
     :root {
       color-scheme: light dark;
@@ -16,17 +17,17 @@
       place-items: center;
       font-family: "Inter", "Segoe UI", Arial, sans-serif;
       background-color: #edf2f8;
-      background-image: radial-gradient(circle, rgba(71, 85, 105, 0.22) 1px, transparent 1px);
-      background-size: 16px 16px;
+      background-image: radial-gradient(circle, rgba(71, 85, 105, 0.22) 1.2px, transparent 1.2px);
+      background-size: 21px 21px;
     }
     .wrap {
-      width: min(92vw, 700px);
+      width: min(92vw, 840px);
       text-align: center;
-      padding: 28px 28px 14px;
-      border-radius: 20px;
+      padding: 34px 34px 17px;
+      border-radius: 24px;
       background: rgba(255, 255, 255, 0.72);
       border: 1px solid rgba(255, 255, 255, 0.9);
-      box-shadow: 0 14px 40px rgba(16, 24, 40, 0.12);
+      box-shadow: 0 17px 48px rgba(16, 24, 40, 0.12);
       backdrop-filter: blur(4px);
     }
     #search-form {
@@ -35,10 +36,10 @@
     input {
       width: 100%;
       box-sizing: border-box;
-      padding: 20px 24px;
+      padding: 24px 29px;
       border: 1px solid #d0d7e2;
-      border-radius: 14px;
-      font-size: 20px;
+      border-radius: 17px;
+      font-size: 24px;
       font-weight: 500;
       letter-spacing: 0.01em;
       outline: none;
@@ -48,12 +49,12 @@
     }
     input:focus {
       border-color: #5b9dff;
-      box-shadow: 0 0 0 4px rgba(91, 157, 255, 0.2);
+      box-shadow: 0 0 0 5px rgba(91, 157, 255, 0.2);
       transform: translateY(-1px);
     }
     .hint {
-      margin-top: 14px;
-      font-size: 12px;
+      margin-top: 17px;
+      font-size: 14px;
       color: #475569;
       word-break: break-all;
     }
@@ -82,6 +83,30 @@
 
     // Replace token inside template with encoded input text.
     const token = params.get("token") || "%";
+
+    const resolveDomainFromTemplate = (template) => {
+      const probe = [token, "%", "{query}"].find((t) => template.includes(t));
+      const sampleUrl = probe
+        ? template.split(probe).join("sample")
+        : template;
+
+      try {
+        return new URL(sampleUrl).hostname;
+      } catch {
+        return "";
+      }
+    };
+
+    const targetDomain = resolveDomainFromTemplate(targetTemplate);
+    if (targetDomain) {
+      const faviconHref = `https://www.google.com/s2/favicons?sz=64&domain=${encodeURIComponent(targetDomain)}`;
+      const iconLink = document.querySelector("link[rel='icon']") || document.createElement("link");
+      iconLink.setAttribute("rel", "icon");
+      iconLink.setAttribute("href", faviconHref);
+      if (!iconLink.parentNode) {
+        document.head.appendChild(iconLink);
+      }
+    }
 
     const form = document.getElementById("search-form");
     const input = document.getElementById("search-input");
